@@ -1,0 +1,1139 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Quran Practice - تلاوة</title>
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Quran Practice">
+    <meta name="theme-color" content="#1a5f3f">
+    
+    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiUXVyYW4gUHJhY3RpY2UiLCJzaG9ydF9uYW1lIjoiUXVyYW4iLCJzdGFydF91cmwiOiIuLyIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwidGhlbWVfY29sb3IiOiIjMWE1ZjNmIiwiYmFja2dyb3VuZGNvbG9yIjoiI2Y1ZjdmYSIsImljb25zIjpbeyJzcmMiOiJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LFBSUjJaeUIzYVdSMGFEMGlNalFpSUdohbGFXZE9kRDBpTWpRaUlIWnBaWGxDYjM5OUlqQWdNQ0F5TkNBd05DQXlOQ0lnWm1sc2JEMGlJekZoTldZelppSStQSEJoZEdnaVpEMGlUVEV5SURNZ1F6VTJMVGNnTkM0NElERWdORGt6SURNZ1F6RXlJRGN1TWlBeUlEY3VNaUF5SURNZ1F6RTNJRGN1TWlBeUlEVXdJRE1nYTA0dU1UZzBJREFnTUM0eE9EUmxMUzQ0TWpndVFqUTRMVGs0TnlBMElESTFJRGcyTGpReElERTJJRGN5SURFMklEYzJJREUySURjMklDNHdNekV1UTJVNUlEZ3dJRGt6SUROaklFOHlMamMySURaeklESWdOakVnTWlBMk1TSWdabWxzYkQwaWJtOXVaU0lnYzNSeWIydGxQU0lpSTJabVptWmlJaUJ6ZEhKdmEyVXRkMmxrZEdnOUlqSWlMejQ4TDNOMlp6ND0iLCJzaXplcyI6IjI0eDI0IiwidHlwZSI6ImltYWdlL3N2Zyt4bWwifV19">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-green: #1a5f3f;
+            --light-green: #2d7a57;
+            --gold: #d4af37;
+            --light-gold: #e6c758;
+            --bg-color: #f5f7fa;
+            --card-bg: #ffffff;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --border-color: #e1e8ed;
+            --shadow: 0 4px 20px rgba(26, 95, 63, 0.1);
+            --shadow-hover: 0 8px 30px rgba(26, 95, 63, 0.15);
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-color);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        .container {
+            max-width: 428px;
+            margin: 0 auto;
+            min-height: 100vh;
+            background: var(--bg-color);
+            position: relative;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--primary-green), var(--light-green));
+            color: white;
+            padding: 50px 20px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="islamic" patternUnits="userSpaceOnUse" width="20" height="20"><circle cx="10" cy="10" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23islamic)"/></svg>');
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-20px, -20px) rotate(180deg); }
+        }
+        
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .header .subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .arabic-text {
+            font-family: 'Times New Roman', serif;
+            font-size: 1.5rem;
+            margin: 10px 0;
+            direction: rtl;
+        }
+        
+        .main-content {
+            padding: 20px;
+            min-height: calc(100vh - 200px);
+        }
+        
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-2px);
+        }
+        
+        .card h2 {
+            color: var(--primary-green);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, var(--primary-green), var(--light-green));
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+        
+        .today-suggestion {
+            background: linear-gradient(135deg, var(--gold), var(--light-gold));
+            color: white;
+            text-align: center;
+            padding: 25px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .today-suggestion h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        
+        .suggested-surah {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 10px 0;
+        }
+        
+        .btn {
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn:hover, .btn:active {
+            background: var(--light-green);
+            transform: scale(1.02);
+        }
+        
+        .btn-secondary {
+            background: var(--gold);
+        }
+        
+        .btn-secondary:hover, .btn-secondary:active {
+            background: var(--light-gold);
+        }
+        
+        .btn-danger {
+            background: #e74c3c;
+        }
+        
+        .btn-danger:hover, .btn-danger:active {
+            background: #c0392b;
+        }
+        
+        .surah-list {
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            background: white;
+        }
+        
+        .surah-item {
+            padding: 15px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s ease;
+        }
+        
+        .surah-item:last-child {
+            border-bottom: none;
+        }
+        
+        .surah-item:hover {
+            background: #f8f9fa;
+        }
+        
+        .surah-info {
+            flex-grow: 1;
+        }
+        
+        .surah-name {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+        
+        .surah-arabic {
+            font-family: 'Times New Roman', serif;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            direction: rtl;
+            margin-top: 2px;
+        }
+        
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        
+        .status-perfect {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-weak {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-poor {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .status-banned {
+            background: #e2e3e5;
+            color: #383d41;
+        }
+        
+        .revision-buttons {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+        
+        .btn-small {
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            border-radius: 15px;
+            min-width: auto;
+            margin: 2px;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .nav-tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            background: #f8f9fa;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+        
+        .nav-tab.active {
+            background: var(--primary-green);
+            color: white;
+        }
+        
+        .search-box {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 25px;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            background: white;
+            transition: border-color 0.3s ease;
+        }
+        
+        .search-box:focus {
+            outline: none;
+            border-color: var(--primary-green);
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .checkbox-item input[type="checkbox"] {
+            margin-right: 12px;
+            transform: scale(1.2);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-light);
+        }
+        
+        .empty-state img {
+            width: 100px;
+            height: 100px;
+            opacity: 0.5;
+            margin-bottom: 20px;
+        }
+        
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 428px;
+            background: white;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-item {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-light);
+            font-size: 0.8rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .nav-item.active {
+            color: var(--primary-green);
+            background: rgba(26, 95, 63, 0.1);
+        }
+        
+        .nav-icon {
+            font-size: 1.2rem;
+        }
+        
+        .mb-bottom-nav {
+            margin-bottom: 80px;
+        }
+        
+        /* Loading spinner */
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--border-color);
+            border-top: 4px solid var(--primary-green);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* iOS Safari specific fixes */
+        @supports (-webkit-touch-callout: none) {
+            .container {
+                min-height: -webkit-fill-available;
+            }
+            
+            .header {
+                padding-top: max(50px, env(safe-area-inset-top, 50px));
+            }
+            
+            .bottom-nav {
+                padding-bottom: max(12px, env(safe-area-inset-bottom, 12px));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Quran Practice</h1>
+            <div class="arabic-text">تلاوة القرآن</div>
+            <div class="subtitle">Perfect Your Memorization</div>
+        </div>
+        
+        <div class="main-content mb-bottom-nav">
+            <div id="home" class="page active">
+                <div class="today-suggestion" id="todaySuggestion">
+                    <h3>Today's Practice</h3>
+                    <div class="suggested-surah" id="suggestedSurah">Loading suggestion...</div>
+                    <button class="btn btn-secondary" onclick="generateNewSuggestion()">🔄 New Suggestion</button>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-number" id="totalMemorized">0</span>
+                        <div class="stat-label">Memorized</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number" id="perfectCount">0</span>
+                        <div class="stat-label">Perfect</div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h2>📚 Quick Actions</h2>
+                    <button class="btn" onclick="showPage('manage')">Manage Surahs</button>
+                    <button class="btn btn-secondary" onclick="showPage('practice')">Practice Session</button>
+                </div>
+            </div>
+            
+            <div id="manage" class="page">
+                <div class="nav-tabs">
+                    <button class="nav-tab active" onclick="showManageTab('select')">Select</button>
+                    <button class="nav-tab" onclick="showManageTab('status')">Status</button>
+                </div>
+                
+                <div id="selectTab" class="manage-tab active">
+                    <div class="card">
+                        <h2>📖 Select Memorized Surahs</h2>
+                        <input type="text" class="search-box" id="searchSelect" placeholder="Search surahs..." onkeyup="filterSurahs('select')">
+                        <div class="surah-list" id="selectSurahList"></div>
+                    </div>
+                </div>
+                
+                <div id="statusTab" class="manage-tab" style="display: none;">
+                    <div class="card">
+                        <h2>📊 Update Revision Status</h2>
+                        <input type="text" class="search-box" id="searchStatus" placeholder="Search your surahs..." onkeyup="filterSurahs('status')">
+                        <div class="surah-list" id="statusSurahList"></div>
+                        <div id="statusEmptyState" class="empty-state" style="display: none;">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM3ZjhmOGQiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSI5Ii8+PHBhdGggZD0iTTEwLjQgMTAuNGE0LjIgNC4yIDAgMCAxIDAtMi44Ii8+PHBhdGggZD0iTTEzLjYgMTMuNmE0LjIgNC4yIDAgMCAxIDAgMi44Ii8+PHBhdGggZD0iTTE0LjkgOS42YTcuOSA3LjkgMCAwIDAgMCA0LjgiLz48cGF0aCBkPSJNOS4xIDkuNmE3LjkgNy45IDAgMCAxIDAgNC44Ii8+PC9zdmc+" alt="Empty">
+                            <p>No memorized surahs to manage status. Please select some in the 'Select' tab.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="bannedTab" class="manage-tab" style="display: none;">
+                    <div class="card">
+                        <h2>🚫 Manage Banned Surahs</h2>
+                        <p style="color: var(--text-light); margin-bottom: 15px;">Ban surahs to prevent them from appearing in daily suggestions</p>
+                        <input type="text" class="search-box" id="searchBanned" placeholder="Search your surahs..." onkeyup="filterSurahs('banned')">
+                        <div class="surah-list" id="bannedSurahList"></div>
+                        <div id="bannedEmptyState" class="empty-state" style="display: none;">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM3ZjhmOGQiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNNiAxOCAxOCAxOCAxOCAwIDYgMFoiLz48cGF0aCBkPSJNOCAxNGgxMCIvPjwvc3ZnPg==" alt="Empty">
+                            <p>No surahs currently banned.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="practice" class="page">
+                <div class="card">
+                    <h2>🎯 Practice Session</h2>
+                    <div id="practiceContent">
+                        <div class="today-suggestion">
+                            <h3>Current Surah</h3>
+                            <div class="suggested-surah" id="practiceCurrentSurah">Select a surah to practice</div>
+                            <button class="btn" onclick="startRandomPractice()">🎲 Random Perfect Surah</button>
+                            <button class="btn btn-secondary" onclick="selectSpecificSurahModal()">📋 Choose Specific Surah</button>
+                        </div>
+                        
+                        <div id="practiceActions" style="display: none;">
+                            <h3 style="margin: 20px 0 10px 0; color: var(--primary-green);">How was your recitation?</h3>
+                            <button class="btn" onclick="updatePracticeStatus('perfect')">✅ Perfect</button>
+                            <button class="btn" onclick="updatePracticeStatus('poor')" style="background: #e74c3c;">❌ Poor - Needs Review</button>
+                            <button class="btn btn-danger" onclick="endPractice()">🏁 End Practice</button>
+                        </div>
+                    </div>
+                    <div id="practiceEmptyState" class="empty-state" style="display: none;">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM3ZjhmOGQiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMTIgMmE5LjUgOS41IDAgMSAxIDAgMTkgOS41IDkuNSAwIDAgMSAwLTE5eiIvPjxwYXRoIGQ9Ik05IDkuNUwxMiAxMi41TDE1IDkuNSIvPjxwYXRoIGQ9Ik0xMiAxMjlWMTIiLz48L3N2Zz4=" alt="Empty">
+                        <p>No perfect surahs available for practice. Memorize and mark some as 'Perfect' in the Manage section.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bottom-nav">
+            <button class="nav-item active" onclick="showPage('home')">
+                <div class="nav-icon">🏠</div>
+                <div>Home</div>
+            </button>
+            <button class="nav-item" onclick="showPage('manage')">
+                <div class="nav-icon">📚</div>
+                <div>Manage</div>
+            </button>
+            <button class="nav-item" onclick="showPage('practice')">
+                <div class="nav-icon">🎯</div>
+                <div>Practice</div>
+            </button>
+        </div>
+    </div>
+
+    <div id="specificSurahModal" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; display: flex; justify-content: center; align-items: center;">
+        <div class="card" style="width: 90%; max-width: 400px; padding: 20px; text-align: center;">
+            <h2 style="margin-bottom: 20px;">Choose a Surah to Practice</h2>
+            <input type="text" class="search-box" id="searchSpecific" placeholder="Search surahs..." onkeyup="filterSurahs('specific')">
+            <div class="surah-list" id="specificSurahList" style="max-height: 300px;"></div>
+            <button class="btn btn-danger" onclick="closeSpecificSurahModal()" style="margin-top: 20px;">Close</button>
+        </div>
+    </div>
+
+    <script>
+        // Surah data with Arabic names
+        const surahs = [
+            {id: 1, name: "Al-Fatihah", arabic: "الفاتحة"},
+            {id: 2, name: "Al-Baqarah", arabic: "البقرة"},
+            {id: 3, name: "Aal-E-Imran", arabic: "آل عمران"},
+            {id: 4, name: "An-Nisa", arabic: "النساء"},
+            {id: 5, name: "Al-Ma'idah", arabic: "المائدة"},
+            {id: 6, name: "Al-An'am", arabic: "الأنعام"},
+            {id: 7, name: "Al-A'raf", arabic: "الأعراف"},
+            {id: 8, name: "Al-Anfal", arabic: "الأنفال"},
+            {id: 9, name: "At-Tawbah", arabic: "التوبة"},
+            {id: 10, name: "Yunus", arabic: "يونس"},
+            {id: 11, name: "Hud", arabic: "هود"},
+            {id: 12, name: "Yusuf", arabic: "يوسف"},
+            {id: 13, name: "Ar-Ra'd", arabic: "الرعد"},
+            {id: 14, name: "Ibrahim", arabic: "إبراهيم"},
+            {id: 15, name: "Al-Hijr", arabic: "الحجر"},
+            {id: 16, name: "An-Nahl", arabic: "النحل"},
+            {id: 17, name: "Al-Isra", arabic: "الإسراء"},
+            {id: 18, name: "Al-Kahf", arabic: "الكهف"},
+            {id: 19, name: "Maryam", arabic: "مريم"},
+            {id: 20, name: "Taha", arabic: "طه"},
+            {id: 21, name: "Al-Anbya", arabic: "الأنبياء"},
+            {id: 22, name: "Al-Hajj", arabic: "الحج"},
+            {id: 23, name: "Al-Mu'minun", arabic: "المؤمنون"},
+            {id: 24, name: "An-Nur", arabic: "النور"},
+            {id: 25, name: "Al-Furqan", arabic: "الفرقان"},
+            {id: 26, name: "Ash-Shu'ara", arabic: "الشعراء"},
+            {id: 27, name: "An-Naml", arabic: "النمل"},
+            {id: 28, name: "Al-Qasas", arabic: "القصص"},
+            {id: 29, name: "Al-'Ankabut", arabic: "العنكبوت"},
+            {id: 30, name: "Ar-Rum", arabic: "الروم"},
+            {id: 31, name: "Luqman", arabic: "لقمان"},
+            {id: 32, name: "As-Sajdah", arabic: "السجدة"},
+            {id: 33, name: "Al-Ahzab", arabic: "الأحزاب"},
+            {id: 34, name: "Saba", arabic: "سبأ"},
+            {id: 35, name: "Fatir", arabic: "فاطر"},
+            {id: 36, name: "Ya-Sin", arabic: "يس"},
+            {id: 37, name: "As-Saffat", arabic: "الصافات"},
+            {id: 38, name: "Sad", arabic: "ص"},
+            {id: 39, name: "Az-Zumar", arabic: "الزمر"},
+            {id: 40, name: "Ghafir", arabic: "غافر"},
+            {id: 41, name: "Fussilat", arabic: "فصلت"},
+            {id: 42, name: "Ash-Shuraa", arabic: "الشورى"},
+            {id: 43, name: "Az-Zukhruf", arabic: "الزخرف"},
+            {id: 44, name: "Ad-Dukhan", arabic: "الدخان"},
+            {id: 45, name: "Al-Jathiyah", arabic: "الجاثية"},
+            {id: 46, name: "Al-Ahqaf", arabic: "الأحقاف"},
+            {id: 47, name: "Muhammad", arabic: "محمد"},
+            {id: 48, name: "Al-Fath", arabic: "الفتح"},
+            {id: 49, name: "Al-Hujurat", arabic: "الحجرات"},
+            {id: 50, name: "Qaf", arabic: "ق"},
+            {id: 51, name: "Adh-Dhariyat", arabic: "الذاريات"},
+            {id: 52, name: "At-Tur", arabic: "الطور"},
+            {id: 53, name: "An-Najm", arabic: "النجم"},
+            {id: 54, name: "Al-Qamar", arabic: "القمر"},
+            {id: 55, name: "Ar-Rahman", arabic: "الرحمن"},
+            {id: 56, name: "Al-Waqi'ah", arabic: "الواقعة"},
+            {id: 57, name: "Al-Hadid", arabic: "الحديد"},
+            {id: 58, name: "Al-Mujadila", arabic: "المجادلة"},
+            {id: 59, name: "Al-Hashr", arabic: "الحشر"},
+            {id: 60, name: "Al-Mumtahanah", arabic: "الممتحنة"},
+            {id: 61, name: "As-Saff", arabic: "الصف"},
+            {id: 62, name: "Al-Jumu'ah", arabic: "الجمعة"},
+            {id: 63, name: "Al-Munafiqun", arabic: "المنافقون"},
+            {id: 64, name: "At-Taghabun", arabic: "التغابن"},
+            {id: 65, name: "At-Talaq", arabic: "الطلاق"},
+            {id: 66, name: "At-Tahrim", arabic: "التحريم"},
+            {id: 67, name: "Al-Mulk", arabic: "الملك"},
+            {id: 68, name: "Al-Qalam", arabic: "القلم"},
+            {id: 69, name: "Al-Haqqah", arabic: "الحاقة"},
+            {id: 70, name: "Al-Ma'arij", arabic: "المعارج"},
+            {id: 71, name: "Nuh", arabic: "نوح"},
+            {id: 72, name: "Al-Jinn", arabic: "الجن"},
+            {id: 73, name: "Al-Muzzammil", arabic: "المزمل"},
+            {id: 74, name: "Al-Muddaththir", arabic: "المدثر"},
+            {id: 75, name: "Al-Qiyamah", arabic: "القيامة"},
+            {id: 76, name: "Al-Insan", arabic: "الإنسان"},
+            {id: 77, name: "Al-Mursalat", arabic: "المرسلات"},
+            {id: 78, name: "An-Naba", arabic: "النبأ"},
+            {id: 79, name: "An-Nazi'at", arabic: "النازعات"},
+            {id: 80, name: "Abasa", arabic: "عبس"},
+            {id: 81, name: "At-Takwir", arabic: "التكوير"},
+            {id: 82, name: "Al-Infitar", arabic: "الإنفطار"},
+            {id: 83, name: "Al-Mutaffifin", arabic: "المطففين"},
+            {id: 84, name: "Al-Inshiqaq", arabic: "الإنشقاق"},
+            {id: 85, name: "Al-Buruj", arabic: "البروج"},
+            {id: 86, name: "At-Tariq", arabic: "الطارق"},
+            {id: 87, name: "Al-A'la", arabic: "الأعلى"},
+            {id: 88, name: "Al-Ghashiyah", arabic: "الغاشية"},
+            {id: 89, name: "Al-Fajr", arabic: "الفجر"},
+            {id: 90, name: "Al-Balad", arabic: "البلد"},
+            {id: 91, name: "Ash-Shams", arabic: "الشمس"},
+            {id: 92, name: "Al-Layl", arabic: "الليل"},
+            {id: 93, name: "Ad-Duhaa", arabic: "الضحى"},
+            {id: 94, name: "Ash-Sharh", arabic: "الشرح"},
+            {id: 95, name: "At-Tin", arabic: "التين"},
+            {id: 96, name: "Al-Alaq", arabic: "العلق"},
+            {id: 97, name: "Al-Qadr", arabic: "القدر"},
+            {id: 98, name: "Al-Bayyinah", arabic: "البينة"},
+            {id: 99, name: "Az-Zalzalah", arabic: "الزلزلة"},
+            {id: 100, name: "Al-Adiyat", arabic: "العاديات"},
+            {id: 101, name: "Al-Qari'ah", arabic: "القارعة"},
+            {id: 102, name: "At-Takathur", arabic: "التكاثر"},
+            {id: 103, name: "Al-Asr", arabic: "العصر"},
+            {id: 104, name: "Al-Humazah", arabic: "الهمزة"},
+            {id: 105, name: "Al-Fil", arabic: "الفيل"},
+            {id: 106, name: "Quraysh", arabic: "قريش"},
+            {id: 107, name: "Al-Ma'un", arabic: "الماعون"},
+            {id: 108, name: "Al-Kawthar", arabic: "الكوثر"},
+            {id: 109, name: "Al-Kafirun", arabic: "الكافرون"},
+            {id: 110, name: "An-Nasr", arabic: "النصر"},
+            {id: 111, name: "Al-Masad", arabic: "المسد"},
+            {id: 112, name: "Al-Ikhlas", arabic: "الإخلاص"},
+            {id: 113, name: "Al-Falaq", arabic: "الفلق"},
+            {id: 114, name: "An-Nas", arabic: "الناس"}
+        ];
+
+        // State variables, persisted in localStorage
+        let userSurahs = JSON.parse(localStorage.getItem('userSurahs')) || {};
+        let bannedSurahs = JSON.parse(localStorage.getItem('bannedSurahs')) || [];
+        let lastSuggestedSurahId = localStorage.getItem('lastSuggestedSurahId');
+        let lastSuggestionDate = localStorage.getItem('lastSuggestionDate');
+        let currentPracticeSurah = null;
+
+        // --- Core Functions ---
+
+        function saveState() {
+            localStorage.setItem('userSurahs', JSON.stringify(userSurahs));
+            localStorage.setItem('bannedSurahs', JSON.stringify(bannedSurahs));
+            localStorage.setItem('lastSuggestedSurahId', lastSuggestedSurahId);
+            localStorage.setItem('lastSuggestionDate', lastSuggestionDate);
+            updateStats();
+            renderManageSurahs('select'); // Re-render lists after saving
+            renderManageSurahs('status');
+            renderManageSurahs('banned');
+        }
+
+        function updateStats() {
+            const memorizedCount = Object.keys(userSurahs).length;
+            const perfectCount = Object.values(userSurahs).filter(s => s.status === 'perfect').length;
+            document.getElementById('totalMemorized').textContent = memorizedCount;
+            document.getElementById('perfectCount').textContent = perfectCount;
+        }
+
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            document.querySelector(`.nav-item[onclick="showPage('${pageId}')"]`).classList.add('active');
+
+            // Initialize content for the shown page
+            if (pageId === 'manage') {
+                showManageTab('select'); // Default to 'Select' tab
+            } else if (pageId === 'home') {
+                generateDailySuggestion();
+            } else if (pageId === 'practice') {
+                resetPracticeSession();
+            }
+        }
+
+        // --- Manage Surahs Tab Logic ---
+
+        function showManageTab(tabId) {
+            document.querySelectorAll('.manage-tab').forEach(tab => {
+                tab.style.display = 'none';
+                tab.classList.remove('active');
+            });
+            document.getElementById(`${tabId}Tab`).style.display = 'block';
+            document.getElementById(`${tabId}Tab`).classList.add('active');
+
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelector(`.nav-tab[onclick="showManageTab('${tabId}')"]`).classList.add('active');
+
+            renderManageSurahs(tabId);
+            document.getElementById(`search${capitalizeFirstLetter(tabId)}`).value = ''; // Clear search
+        }
+
+        function renderManageSurahs(tabType, searchTerm = '') {
+            let listElementId;
+            let displaySurahs;
+            let showEmptyState = false;
+
+            if (tabType === 'select') {
+                listElementId = 'selectSurahList';
+                displaySurahs = surahs; // All surahs for selection
+            } else if (tabType === 'status') {
+                listElementId = 'statusSurahList';
+                displaySurahs = surahs.filter(s => userSurahs[s.id]); // Only memorized surahs
+                showEmptyState = Object.keys(userSurahs).length === 0;
+                document.getElementById('statusEmptyState').style.display = showEmptyState ? 'block' : 'none';
+            } else if (tabType === 'banned') {
+                listElementId = 'bannedSurahList';
+                // Filter surahs that are in userSurahs and are also in bannedSurahs
+                displaySurahs = surahs.filter(s => userSurahs[s.id] && bannedSurahs.includes(s.id));
+                showEmptyState = bannedSurahs.length === 0;
+                document.getElementById('bannedEmptyState').style.display = showEmptyState ? 'block' : 'none';
+            } else if (tabType === 'specific') { // For the specific practice modal
+                listElementId = 'specificSurahList';
+                displaySurahs = surahs.filter(s => userSurahs[s.id] && userSurahs[s.id].status === 'perfect' && !bannedSurahs.includes(s.id));
+            }
+
+
+            const listElement = document.getElementById(listElementId);
+            if (!listElement) return; // Exit if the element isn't found (e.g., modal not open)
+
+            listElement.innerHTML = ''; // Clear previous list
+
+            if (showEmptyState) {
+                return; // Don't render anything if empty state is shown
+            }
+
+            const filtered = displaySurahs.filter(s =>
+                s.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                s.arabic.includes(searchTerm)
+            );
+
+            if (filtered.length === 0 && searchTerm) {
+                listElement.innerHTML = `<div class="empty-state">
+                    <p>No results found for "${searchTerm}".</p>
+                </div>`;
+                return;
+            } else if (filtered.length === 0) {
+                 // This case should be handled by showEmptyState for 'status' and 'banned'
+                 // For 'select' and 'specific', it implies no surahs at all, which is unlikely.
+                 listElement.innerHTML = `<div class="empty-state">
+                    <p>No surahs to display.</p>
+                </div>`;
+                return;
+            }
+
+
+            filtered.forEach(surah => {
+                const surahItem = document.createElement('div');
+                surahItem.classList.add('surah-item');
+
+                const surahInfo = document.createElement('div');
+                surahInfo.classList.add('surah-info');
+                surahInfo.innerHTML = `<div class="surah-name">${surah.id}. ${surah.name}</div>
+                                       <div class="surah-arabic">${surah.arabic}</div>`;
+                surahItem.appendChild(surahInfo);
+
+                if (tabType === 'select') {
+                    const checkboxWrapper = document.createElement('label');
+                    checkboxWrapper.classList.add('checkbox-item'); // Not really a checkbox item, but re-using style
+
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.checked = !!userSurahs[surah.id];
+                    checkbox.onchange = () => toggleMemorized(surah.id);
+                    checkboxWrapper.appendChild(checkbox);
+
+                    const span = document.createElement('span');
+                    span.textContent = userSurahs[surah.id] ? 'Memorized' : 'Not Memorized';
+                    checkboxWrapper.appendChild(span);
+
+                    // Replace the innerHTML of surahItem directly for simplicity
+                    surahItem.innerHTML = `<div class="surah-info">
+                                                <div class="surah-name">${surah.id}. ${surah.name}</div>
+                                                <div class="surah-arabic">${surah.arabic}</div>
+                                            </div>
+                                            <label class="checkbox-item">
+                                                <input type="checkbox" onchange="toggleMemorized(${surah.id})" ${userSurahs[surah.id] ? 'checked' : ''}>
+                                                <span>${userSurahs[surah.id] ? 'Memorized' : 'Not Memorized'}</span>
+                                            </label>`;
+
+
+                } else if (tabType === 'status') {
+                    const currentStatus = userSurahs[surah.id]?.status || 'new';
+                    const badge = document.createElement('span');
+                    badge.classList.add('status-badge', `status-${currentStatus}`);
+                    badge.textContent = capitalizeFirstLetter(currentStatus);
+                    surahInfo.appendChild(badge); // Append badge to surahInfo
+
+                    const buttonsDiv = document.createElement('div');
+                    buttonsDiv.classList.add('revision-buttons');
+
+                    ['perfect', 'poor', 'banned'].forEach(status => {
+                        const button = document.createElement('button');
+                        button.classList.add('btn', 'btn-small');
+                        button.textContent = capitalizeFirstLetter(status);
+                        button.onclick = () => updateMemorizedStatus(surah.id, status);
+                        if (currentStatus === status) {
+                            button.style.backgroundColor = 'var(--primary-green)'; // Highlight active status
+                            button.style.color = 'white';
+                        }
+                        if (status === 'banned') button.style.backgroundColor = '#f39c12';
+                        if (status === 'poor') button.style.backgroundColor = '#e74c3c';
+                        buttonsDiv.appendChild(button);
+                    });
+                    surahItem.appendChild(buttonsDiv);
+                } else if (tabType === 'banned') {
+                    const toggleButton = document.createElement('button');
+                    toggleButton.classList.add('btn', 'btn-small', 'btn-danger');
+                    toggleButton.textContent = 'Unban';
+                    toggleButton.onclick = () => toggleBanSurah(surah.id);
+                    surahItem.appendChild(toggleButton);
+                } else if (tabType === 'specific') {
+                    const selectButton = document.createElement('button');
+                    selectButton.classList.add('btn', 'btn-small');
+                    selectButton.textContent = 'Select';
+                    selectButton.onclick = () => selectSpecificSurah(surah.id);
+                    surahItem.appendChild(selectButton);
+                }
+
+                listElement.appendChild(surahItem);
+            });
+        }
+
+        function filterSurahs(tabType) {
+            const searchTerm = document.getElementById(`search${capitalizeFirstLetter(tabType)}`).value;
+            renderManageSurahs(tabType, searchTerm);
+        }
+
+        function toggleMemorized(surahId) {
+            if (userSurahs[surahId]) {
+                delete userSurahs[surahId];
+                // If unmemorized, remove from banned list as well
+                bannedSurahs = bannedSurahs.filter(id => id !== surahId);
+            } else {
+                userSurahs[surahId] = { status: 'new', lastPractice: null }; // Default status when selected
+            }
+            saveState();
+            renderManageSurahs('select', document.getElementById('searchSelect').value); // Re-render the select list
+        }
+
+        function updateMemorizedStatus(surahId, status) {
+            if (userSurahs[surahId]) {
+                userSurahs[surahId].status = status;
+                if (status === 'perfect') {
+                    userSurahs[surahId].lastPerfected = new Date().toISOString().split('T')[0]; // Store date
+                }
+                // If setting status to anything other than banned, ensure it's not in bannedSurahs
+                if (bannedSurahs.includes(surahId)) {
+                    bannedSurahs = bannedSurahs.filter(id => id !== surahId);
+                }
+            }
+            saveState();
+            renderManageSurahs('status', document.getElementById('searchStatus').value); // Re-render the status list
+        }
+
+        function toggleBanSurah(surahId) {
+            const index = bannedSurahs.indexOf(surahId);
+            if (index > -1) {
+                bannedSurahs.splice(index, 1); // Unban
+            } else {
+                if (userSurahs[surahId]) { // Only ban if it's a memorized surah
+                    bannedSurahs.push(surahId); // Ban
+                }
+            }
+            saveState();
+            renderManageSurahs('banned', document.getElementById('searchBanned').value); // Re-render the banned list
+            generateDailySuggestion(); // Update daily suggestion in case banned surah was suggested
+        }
+
+        // --- Daily Suggestion Logic ---
+
+        function generateDailySuggestion() {
+            const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+
+            // Only generate new suggestion if it's a new day or forced refresh
+            if (lastSuggestionDate === today && lastSuggestedSurahId) {
+                const suggestedSurah = surahs.find(s => s.id === parseInt(lastSuggestedSurahId));
+                if (suggestedSurah) {
+                    document.getElementById('suggestedSurah').textContent = `${suggestedSurah.name} (${suggestedSurah.arabic})`;
+                    return;
+                }
+            }
+
+            const perfectUnbannedSurahs = surahs.filter(s =>
+                userSurahs[s.id] &&
+                userSurahs[s.id].status === 'perfect' &&
+                !bannedSurahs.includes(s.id)
+            );
+
+            if (perfectUnbannedSurahs.length === 0) {
+                document.getElementById('suggestedSurah').textContent = "No perfect surahs available!";
+                lastSuggestedSurahId = null;
+                saveState();
+                return;
+            }
+
+            let nextSurah = null;
+            // Attempt to find a 'perfect' surah that hasn't been suggested recently, or the least recently perfected
+            const sortedPerfectSurahs = perfectUnbannedSurahs.sort((a, b) => {
+                const dateA = userSurahs[a.id]?.lastPerfected ? new Date(userSurahs[a.id].lastPerfected).getTime() : 0;
+                const dateB = userSurahs[b.id]?.lastPerfected ? new Date(userSurahs[b.id].lastPerfected).getTime() : 0;
+                return dateA - dateB;
+            });
+
+            // Find a surah that wasn't the last one suggested, prioritizing least recently perfected
+            const potentialSurahs = sortedPerfectSurahs.filter(s => s.id !== parseInt(lastSuggestedSurahId));
+            if (potentialSurahs.length > 0) {
+                nextSurah = potentialSurahs[0]; // Take the least recently perfected from the eligible list
+            } else {
+                // If only one perfect unbanned surah, or all others were the last suggested, just pick a random one
+                nextSurah = perfectUnbannedSurahs[Math.floor(Math.random() * perfectUnbannedSurahs.length)];
+            }
+
+
+            document.getElementById('suggestedSurah').textContent = `${nextSurah.name} (${nextSurah.arabic})`;
+            lastSuggestedSurahId = nextSurah.id.toString();
+            lastSuggestionDate = today;
+            saveState();
+        }
+
+        // Forced new suggestion for the current day
+        function generateNewSuggestion() {
+            lastSuggestedSurahId = null; // Clear previous suggestion to force new one
+            lastSuggestionDate = null; // Clear date to force new one
+            generateDailySuggestion();
+        }
+
+
+        // --- Practice Session Logic ---
+        function resetPracticeSession() {
+            currentPracticeSurah = null;
+            document.getElementById('practiceCurrentSurah').textContent = "Select a surah to practice";
+            document.getElementById('practiceActions').style.display = 'none';
+            document.getElementById('practiceEmptyState').style.display = 'none'; // Hide empty state
+        }
+
+        function startRandomPractice() {
+            const perfectSurahs = surahs.filter(s => userSurahs[s.id] && userSurahs[s.id].status === 'perfect' && !bannedSurahs.includes(s.id));
+
+            if (perfectSurahs.length === 0) {
+                document.getElementById('practiceEmptyState').style.display = 'block';
+                document.getElementById('practiceContent').style.display = 'none';
+                return;
+            }
+
+            const randomIndex = Math.floor(Math.random() * perfectSurahs.length);
+            currentPracticeSurah = perfectSurahs[randomIndex];
+            document.getElementById('practiceCurrentSurah').textContent = `${currentPracticeSurah.name} (${currentPracticeSurah.arabic})`;
+            document.getElementById('practiceActions').style.display = 'block';
+            document.getElementById('practiceEmptyState').style.display = 'none'; // Hide empty state
+            document.getElementById('practiceContent').style.display = 'block';
+        }
+
+        function selectSpecificSurahModal() {
+            document.getElementById('specificSurahModal').style.display = 'flex';
+            renderManageSurahs('specific');
+            document.getElementById('searchSpecific').value = ''; // Clear search
+        }
+
+        function selectSpecificSurah(surahId) {
+            const selected = surahs.find(s => s.id === surahId);
+            if (selected) {
+                currentPracticeSurah = selected;
+                document.getElementById('practiceCurrentSurah').textContent = `${currentPracticeSurah.name} (${currentPracticeSurah.arabic})`;
+                document.getElementById('practiceActions').style.display = 'block';
+                document.getElementById('practiceEmptyState').style.display = 'none';
+                document.getElementById('practiceContent').style.display = 'block';
+                closeSpecificSurahModal();
+            }
+        }
+
+        function closeSpecificSurahModal() {
+            document.getElementById('specificSurahModal').style.display = 'none';
+        }
+
+        function updatePracticeStatus(status) {
+            if (currentPracticeSurah) {
+                updateMemorizedStatus(currentPracticeSurah.id, status);
+                // Optionally, automatically suggest another surah after updating status
+                startRandomPractice();
+            }
+        }
+
+        function endPractice() {
+            resetPracticeSession();
+        }
+
+
+        // --- Utility Functions ---
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+
+        // --- Initialization ---
+        document.addEventListener('DOMContentLoaded', () => {
+            updateStats();
+            generateDailySuggestion();
+            showPage('home'); // Ensure home page is shown on load
+        });
+
+        // Register service worker for PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').then(registration => {
+                    console.log('SW registered: ', registration);
+                }).catch(registrationError => {
+                    console.log('SW registration failed: ', registrationError);
+                });
+            });
+        }
+    </script>
+    <script>
+        // sw.js content (for PWA) - needs to be in a separate file for proper PWA functionality
+        // Create a file named `sw.js` in the same directory as your HTML file
+        /*
+        const CACHE_NAME = 'quran-practice-v1';
+        const urlsToCache = [
+            '/',
+            '/index.html', // Or your main HTML file name
+            // Add any other assets you want to cache (CSS, JS, images, etc.)
+            // 'style.css',
+            // 'script.js'
+        ];
+
+        self.addEventListener('install', event => {
+            event.waitUntil(
+                caches.open(CACHE_NAME)
+                    .then(cache => {
+                        console.log('Opened cache');
+                        return cache.addAll(urlsToCache);
+                    })
+            );
+        });
+
+        self.addEventListener('fetch', event => {
+            event.respondWith(
+                caches.match(event.request)
+                    .then(response => {
+                        if (response) {
+                            return response; // Found in cache
+                        }
+                        return fetch(event.request); // Not in cache, fetch from network
+                    })
+            );
+        });
+
+        self.addEventListener('activate', event => {
+            const cacheWhitelist = [CACHE_NAME];
+            event.waitUntil(
+                caches.keys().then(cacheNames => {
+                    return Promise.all(
+                        cacheNames.map(cacheName => {
+                            if (cacheWhitelist.indexOf(cacheName) === -1) {
+                                return caches.delete(cacheName); // Delete old caches
+                            }
+                        })
+                    );
+                })
+            );
+        });
+        */
+    </script>
+</body>
+</html>
